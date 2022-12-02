@@ -1,10 +1,8 @@
 # Video-KYC
 
-
-[![](https://raw.githubusercontent.com/shuftipro/RESTful-API-v1.2/master/assets/banner.jpg)](https://www.shuftipro.com/)
-
-# What Is This?
+# What is Shufti Pro?
 Shufti Pro is a SaaS provider. We provides quick and accurate digital identity and document verification. E-KYC using government-issued documents like ID card, passport, driving license and even credit/debit cards, etc. has never been easier. Shufti Pro allows for simple and easy ID checks online, securing the virtual trading platforms and FinTech institutions against scams, frauds and money launderers.
+
 
 
 ## Table of contents
@@ -42,17 +40,12 @@ Application Info.plist must contain an **Privacy - Camera Usage Description** an
 >### Installation through Cocoapods
    
  For Swift version 4 & 5
-```sh
-pod 'ShuftiPro', :tag => '2.0.9', :git => "https://github.com/shuftipro/iOS-binary-pod"
-```
 
->### Manuall installation
-1. Copy “ShuftiPro.framework” into your project folder.
-2.  In xcode select your project -> your project under TARGETS -> General -> Embeded Binaries
-3.  Add “ShuftiPro.framework” in Embeded Binaries.
+1. Drop “ShuftiPro.xcframework” into your project folder.
+1. In xcode select your project -> your project under TARGETS -> General -> Embeded Content section make sure “ShuftiPro.xcframework” is added as Embeded & Sign.
 
 ## SDK Version:
-Currently our updated SDK version is 2.0.9
+Currently our updated SDK version is 2.0.0
 
 ## Verification
 In order to get verified, customers will have themselves verified through their mobile phones. They will do it through the merchant's mobile application. Merchant will collect the information and send data to Shufti Pro for verification. The Merchant shall provide the proofs(Images/Videos). Shufti Pro will not collect them directly from the user.
@@ -292,7 +285,7 @@ You can read more about **accessToken** [here](https://api.shuftipro.com/api/doc
 ## Configs
 ```sh
   let configs = [
-                "open_webview" : "false",
+                "open_webview" : "true",
                 "aysnc" : "false"
   ]
 ```
@@ -925,21 +918,4 @@ If you have any questions/queries regarding implementation SDK please feel free 
 
 ## Copyright
 2017- 22 © Shufti Pro Ltd.
-
-## Revision History
-
-Date            | Description 
---------------- | ------------
-20 Jan 2021    | Added all verifications(verification with OCR, without OCR and restful API) in one sdk.
-4  Feb 2021    | Updated binaries with increased request timeout.
-26 Mar 2021    | Bugs fixes and UI improvements. 
-29 Mar 2021    | Issue fixes in consent screen.
-29 Apr 2021    | Reduce sdk size.
-18 May 2021    | Improve user experience.
-27 May 2021    | Content updated.
-07 Jul 2021    | ReadMe updated.
-08 Nov 2021    | Remove request timeout time and added support of WKWebview.
-01 Dec 2021    | Bugs fixes and UI improvements.
-28 Mar 2022    | Bug fixes and improve user experience
-12 May 2022    | Add new features in existing SDK
 
