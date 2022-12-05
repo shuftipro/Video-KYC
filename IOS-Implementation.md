@@ -1,7 +1,10 @@
 # Video-KYC
 
+
+[![](https://raw.githubusercontent.com/shuftipro/RESTful-API-v1.2/master/assets/banner.jpg)](https://www.shuftipro.com/)
+
 # What is Shufti Pro?
-Shufti Pro is a SaaS provider. We provides quick and accurate digital identity and document verification. E-KYC using government-issued documents like ID card, passport, driving license and even credit/debit cards, etc. has never been easier. Shufti Pro allows for simple and easy ID checks online, securing the virtual trading platforms and FinTech institutions against scams, frauds and money launderers.
+Shufti Pro is a SaaS provider. We provide quick and accurate digital identity and document verification. E-KYC has never been easier using government-issued documents like ID cards, passports, driving licenses, credit/debit cards, etc. Shufti Pro allows for simple and easy ID checks online, securing virtual trading platforms and FinTech institutions against scams, frauds and money launderers.
 
 
 
@@ -26,7 +29,7 @@ Shufti Pro is a SaaS provider. We provides quick and accurate digital identity a
 
 # Basic Setup
 ## General Requirements
-Followings are minimum requirements for SDK:
+The followings are the minimum requirements for SDK:
 - iOS 11.0 and higher
 - Internet connection
 
@@ -34,35 +37,35 @@ Supported architectures in SDK:
 - armv7 and arm64 for devices
 
 ## Permissions:
-Application Info.plist must contain an **Privacy - Camera Usage Description** and **Privacy - Microphone Usage Description** key with a explanation to end-user about how the app uses this data.
+Application Info.plist must contain a **Privacy - Camera Usage Description** and **Privacy - Microphone Usage Description** key to explain to the end-user how the app uses this data.
 
 ## SDK Installation Guide
 >### Installation through Cocoapods
    
- For Swift version 4 & 5
+ For Swift versions 4 & 5
 
 1. Drop “ShuftiPro.xcframework” into your project folder.
-1. In xcode select your project -> your project under TARGETS -> General -> Embeded Content section make sure “ShuftiPro.xcframework” is added as Embeded & Sign.
+1. In Xcode select your project -> your project under TARGETS -> General -> Embedded Content section. Make sure “ShuftiPro.xcframework” is added as Embedded & Sign.
 
 ## SDK Version:
-Currently our updated SDK version is 2.0.0
+Currently, our updated SDK version is 2.0.0
 
 ## Verification
-In order to get verified, customers will have themselves verified through their mobile phones. They will do it through the merchant's mobile application. Merchant will collect the information and send data to Shufti Pro for verification. The Merchant shall provide the proofs(Images/Videos). Shufti Pro will not collect them directly from the user.
+To get verified, customers will have themselves verified through their mobile phones. They will do it through the merchant's mobile application. Merchants will collect the information and send data to Shufti Pro for verification. The Merchant shall provide the proofs(Images/Videos). Shufti Pro will not collect them directly from the user.
 
 * ### With OCR
-In verification with OCR, it means that the merchant has not provided us proofs (images/videos) and also no data in some or all datapoints (Name, DOB etc.). In this verification Shufti Pro will perform extraction of data from those proofs and finally verify the data.
+Verifying with OCR means that the merchant has not provided us proofs (images/videos) and also no data in some or all data points (Name, DOB etc.). In this verification, Shufti Pro will extract data from those proofs and finally verify the data.
 
 * ### Without OCR
-In verification without OCR, merchant gives us the data in all datapoints (Name, DOB etc.) but the proofs are provide by the user then Shufti Pro just have to verify the data. No direct customer interaction takes place in this kind of verification.
+In verification without OCR, the merchant gives us the data in all data points (Name, DOB etc.), but if the user provides the proofs, then Shufti Pro must verify the data. No direct customer interaction takes place in this kind of verification.
 
 * ### Verification through Hybrid view
-If you opt for mobile verification with Shufti Pro’s hybrid view, a web-view built upon HTML 5 will be displayed to the end-user. All data points and fields are adequately defined in the hybrid view. The format for sending verification data will be a JSON object, similar to other mobile verification formats (OCR and Non-OCR). If your send true in [openWebView](#openwebview) parameter then verification through hybrid view will be started else verification with OCR or without OCR (based upon JSON object) will be triggered.
+If you opt for mobile verification with Shufti Pro’s hybrid view, a web view built upon HTML 5 will be displayed to the end user. All data points and fields are adequately defined in the hybrid view. The format for sending verification data will be JSON, similar to other mobile verification formats (OCR and Non-OCR). If your send is true in [openWebView](#openwebview) parameter, then verification through hybrid view will be started else, verification with OCR or without OCR (based upon JSON object) will be triggered.
 
-For more details on technical requirements for Verification with Rest API, kindly visit Shufti Pro’s resource page here.  
+For more details on Verification with Rest API technical requirements, kindly visit Shufti Pro’s resource page here.  
 
 ## Integration: 
-See the sample project provided to learn the most common use. Make sure to build on real device.
+See the sample project provided to learn the most common use. Make sure to build on a real device.
 ```sh
 import ShuftiPro
 ```
@@ -90,7 +93,7 @@ let requestObject: [String: Any] = [
 
             "document": [
                  "proof": "",
-                 "additional_proof" :"",
+                 "additional_proof":"",
 
                  "supported_types": [
                      "passport",
@@ -302,8 +305,8 @@ instance.shuftiProVerification(requestObject: "your-request-object",
                                configs: "configuration-object"){(result) in 
 
     print(result) // Callback response for verification verified/declined
-    let reponse = result as! NSDictionary
-    if reponse.value(forKey: "event") as! String == "verification.accepted" {
+    let response = result as! NSDictionary
+    if response.value(forKey: "event") as! String == "verification.accepted" {
         // Verified: Do something
     }else{
         // Declined: Do something
@@ -319,41 +322,41 @@ instance.shuftiProVerification(requestObject: "your-request-object",
 Whenever a request for verification from a user is received, Shufti Pro’s intelligent system determines the nature of verification through parameters given below. These parameters enable Shufti Pro to:
 
 1. Identify its customers
-2. Check authenticity of client’s credentials
-3. Read client’s data
+2. Check the authenticity of the client’s credentials
+3. Read the client’s data
 4. Decide what information is being sent to perform that verification 
 # Auth Key Object Parameters
-In this object, we add authorization Key in verification request.
+In this object, we add an authorization Key in the verification request.
 * ## Basic Auth
-   Shufti Pro provides Authorization to clients through the Basic Auth header. Your Client ID will serve as your Username while the Secret Key will serve as your Password. The API will require this header for every request.
+   Shufti Pro provides Authorization to clients through the Basic Auth header. Your Client ID will serve as your Username, while the Secret Key will serve as your Password. The API will require this header for every request.
 
 * ## Access Token
-   Shufti Pro provides Bearer Access Token Authorization method. The client can generate temporary [access token](https://api.shuftipro.com/api/docs/?_ga=2.165834294.908983928.1607423250-1279517864.1604641664#access-token-request) using new access token endpoint. The shared token will be used to authorize API requests. The token shared with the client will be valid for 10 minutes and can be used once only.
+   Shufti Pro provides a Bearer Access Token Authorization method. The client can generate a temporary [access token](https://api.shuftipro.com/api/docs/?_ga=2.165834294.908983928.1607423250-1279517864.1604641664#access-token-request) using new access token endpoint. The shared token will be used to authorize API requests. The token shared with the client will be valid for 10 minutes and can be used once only.
 
 # Config Object Parameters
-In this object, we add extra configuration of verification that the user wants.
+In this object, we add an extra configuration of verification that the user wants.
 * ## async
    Required: **No**  
   Type: **string**  
   Accepted Values: **, "true", "false"**
 
-   If async value is set to true you'll instantly get the user's control back so you don't have to wait for the verification results. When a request is completed you'll automatically get a callback. 
+   If an async value is true, you'll instantly get the user's control back, so you don't have to wait for the verification results. When a request is completed, you'll automatically get a callback. 
 * ## open_webview
 
   Required: **No**  
   Type: **string**  
   Accepted Values: **"true", "false"**
 
-  This boolean type of parameter is used to identify if you want to perform verification in its hybrid view.
-  If open_webview is true, it means that the user wants verification in **hybrid view**. If false, then the user wants verification with **OCR or Without OCR**. The value is false by default.
+  This Boolean parameter type is used to identify if you want to perform verification in its hybrid view.
+  If open_webview is true, the user wants verification in **hybrid view**. If false, then the user wants verification with **OCR or Without OCR**. The value is false by default.
 
 
 
 # Request Parameters
 
-It is important to note here that each service module is independent of other and each one of them is activated according to the nature of request received from you. There are a total of six services which include face, document, address, consent, phone and background_checks.
+It is important to note here that each service module is independent of the other, and each one is activated according to the nature of your request. There are a total of six services, including the face, document, address, consent, phone and background_checks.
 
-All verification services are optional. You can provide Shufti Pro a single service or mixture of several services for verifications. All keys are optional too. If a key is given in document or address sevice and no value is provided then OCR will be performed for those keys. 
+All verification services are optional. You can provide Shufti Pro with a single service or a mixture of several services for verifications. All keys are optional too. If a key is given in the document or address service and no value is provided then, OCR will be performed for those keys. 
 
 * ## reference
 
@@ -362,7 +365,7 @@ All verification services are optional. You can provide Shufti Pro a single serv
   Minimum: **6 characters**  
   Maximum: **250 characters**
 
-  This is the unique reference ID of request, which we will send you back with each response, so you can verify the request. Only alphanumeric values are allowed. This reference can be used to get status of already performed verification requests.
+  This is the unique reference ID of the request, which we will send you back with each response so you can verify the request. Only alphanumeric values are allowed. This reference can get the status of already performed verification requests.
 
 
 * ## country
@@ -371,7 +374,7 @@ All verification services are optional. You can provide Shufti Pro a single serv
   Type: **string**  
   Length: **2 characters**
 
-  Send the 2 characters long [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements) country code of where your customer is from. Please consult [Supported Countries](https://api.shuftipro.com/api/docs/#supported-countries) for country codes.
+  Send the two characters long [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements) country code of where your customer is from. Please consult [Supported Countries](https://api.shuftipro.com/api/docs/#supported-countries) for country codes.
 
 * ## language
 
@@ -379,7 +382,7 @@ All verification services are optional. You can provide Shufti Pro a single serv
   Type: **string**  
   Length: **2 characters**
 
-  Send the 2 characters long language code of your preferred language to display the verification screens accordingly. Please consult [Supported Languages](https://api.shuftipro.com/api/docs/#supported-languages) for language codes. Default language english will be selected if this key is missing in the request.
+  Send the two characters long language code of your preferred language to display the verification screens accordingly. Please consult [Supported Languages](https://api.shuftipro.com/api/docs/#supported-languages) for language codes. Default language English will be selected if this key is missing in the request.
 
 * ## email
 
@@ -388,7 +391,7 @@ All verification services are optional. You can provide Shufti Pro a single serv
   Minimum: **6 characters**  
   Maximum: **128 characters**
 
-  This field represents email of the end-user. This is an optional field.
+  This field represents the email of the end user. This is an optional field.
 
 * ## callback_url
 
@@ -397,7 +400,7 @@ All verification services are optional. You can provide Shufti Pro a single serv
   Minimum: **6 characters**  
   Maximum: **250 characters**
 
-  During a verification request, we make several server to server calls to keep you updated about the verification state. This way you can update the request status at your end even if the customer is lost midway through the process.
+  During a verification request, we make several server-to-server calls to keep you updated about the verification state. This way, you can edit the request status at your end even if the customer is lost midway through the process.
 
 * ## verification_mode
 
@@ -405,14 +408,14 @@ All verification services are optional. You can provide Shufti Pro a single serv
   Type: **string**  
   Accepted Values: **image_only, video_only ,any**
 
-  Verification mode defines what types of proofs are allowed for a verification. In case of video_only user will upload videos and if verification mode is image_only, user will upload images. The any mode allows both types of proofs. 
+  Verification mode defines what types of proofs are allowed for verification. In the case of video_only user upload videos, and if the verification mode is image_only, the user will upload images. Any mode allows both types of proofs. 
 
 * ## show_privacy_policy
 
   Required:  **No**  
   Type: **string** <Br>
   Accepted Values: **"0",   "1"**
-  This key specifies if privacy policy will be shown to user or not. If show_privacy_policy is  “0”, then privacy policy is not shown. If “1”, then privacy policy is shown to result screen. 
+  This key specifies if the privacy policy will be shown to the user or not. If show_privacy_policy is  “0”, then the privacy policy is not shown. If “1”, then the privacy policy is shown on to result screen. 
 
   
 * ## show_results
@@ -421,7 +424,7 @@ All verification services are optional. You can provide Shufti Pro a single serv
   Type: **string** <Br>
   Accepted Values: **"0",   "1"**
   
-  This key specifies that is verification result show to user or not. If show_results is "0" than verification result  not show to user and send to merchant. If show_results is "1" than verification result show to user.
+  This key specifies whether that is a verification result shown to the user. If show_results is “0”, then the verification result not show to the user and is sent to the merchant. If show_results is “1”, then the verification result shows to the user.
 
 * ## show_consent
 
@@ -429,7 +432,7 @@ All verification services are optional. You can provide Shufti Pro a single serv
   Type: **string** <Br>
   Accepted Values: **"0",   "1"**
   
-  This parameter displays a screen to collect consent from end-user before the verification process starts. If the value is set 1, the screen will be displayed to end-user. If the value is set 0, the consent screen will not be displayed.
+  This parameter displays a screen to collect consent from the end user before the verification process starts. If the value is set to 1, the screen will be displayed to the end user. The consent screen will not be displayed if the value is set to 0.
   
   * ## allow_online
     
@@ -437,7 +440,7 @@ All verification services are optional. You can provide Shufti Pro a single serv
     Type: **string**  
     Accepted Values: **0**, **1**
     
-  This key specifies if the proof needs to be captured. The 1 value means that the user must capture the proof for verification. This parameter also has priority over allow_offline parameter if both are set to 0.
+  This key specifies if the proof needs to be captured. The one value means that the user must capture the proof for verification. This parameter also has priority over the allow_offline parameter if both are set to 0.
 
 * ## allow_offline
     
@@ -445,17 +448,17 @@ All verification services are optional. You can provide Shufti Pro a single serv
     Type: **string**  
     Accepted Values: **0**, **1**
     
-  This key specifies if the proof needs to be uploaded. The 1 value means that the user must upload the proof for verification.
+  This key specifies if the proof needs to be uploaded. The one value means that the user must upload the proof for verification.
 
 <!-- -------------------------------------------------------------------------------- -->
 * ## Face
 
-  The easiest of all verifications is done by authenticating the face of the users. In case of on-site verification, end-user will have to show their face in front of a webcam or camera of their phone that essentially makes it a selfie verification.
+  The easiest of all verifications is done by authenticating the face of the users. In the case of on-site verification, the end-user will have to show their face in front of a webcam or camera of their phone, which essentially makes it a selfie verification.
 
 <!-- -------------------------------------------------------------------------------- -->
 * ## Document or Document Two
 
-  Shufti Pro provides document verification through various types of documents. The supported formats are passports, ID Cards, driving licenses and debit/credit cards. You can opt for more than 1 document type as well. In that case, Shufti Pro will give an option to end-users to verify their data from any of the given document types.  
+  Shufti Pro provides document verification through various types of documents. The supported formats are passports, ID Cards, driving licenses and debit/credit cards. You can opt for more than 1 document type as well. In that case, Shufti Pro will allow end-users to verify their data from any given document types.  
     * <h3>proof</h3>
 
   Required: **No**  
@@ -463,7 +466,7 @@ All verification services are optional. You can provide Shufti Pro a single serv
   Image Format: JPG, JPEG, PNG, PDF Maximum: 16MB <br>
   Video Format: MP4/MOV Maximum: 20MB
 
-  Provide valid BASE64 encoded string. Leave empty for an on-site verification.
+  Provide valid BASE64 encoded string. Leave empty for on-site verification.
 
     * <h3>additional_proof</h3>
 
@@ -472,7 +475,7 @@ All verification services are optional. You can provide Shufti Pro a single serv
   Image Format: JPG, JPEG, PNG, PDF Maximum: 16MB <br>
   Video Format: MP4/MOV Maximum: 20MB
 
-  Provide valid BASE64 encoded string. Leave empty for an on-site verification.
+  Provide valid BASE64 encoded string. Leave empty for on-site verification.
 
 
     * <h3>backside_proof_required</h3>
@@ -482,14 +485,14 @@ All verification services are optional. You can provide Shufti Pro a single serv
   Accepted values: **0,** **1** <br>
   Default value: **0**
 
-  The 0 value means that the user has the option to skip backside proof of the document provided. 1 means that the user must capture the backside image of           document. In case of passport, 0 value means that the user would not be asked to provide backside proof, and in case of 1 value the user would have choice to       capture or skip the backside proof.
+  The 0 value means that the user has the option to skip backside proof of the document provided. One means that the user must capture the backside image of a document. In the case of a passport, a 0 value means that the user would not be asked to provide backside proof, and in the case of one value, the user would choose to capture or skip the backside proof.
 
   * <h3>supported_types</h3>
 
   Required: **No**  
   Type: **Array**
 
-  You can provide any one, two or more types of documents to verify the identity of user. For example, if you opt for both passport and driving license, then your user will be given an opportunity to verify data from either of these two documents. All supported types are listed below.
+  You can provide any one, two or more types of documents to verify the identity of a user. For example, if you opt for both a passport and a driving license, your user will be allowed to verify data from either of these documents. All supported types are listed below.
 
   Supported Types      |
   ---------------------|
@@ -506,7 +509,7 @@ All verification services are optional. You can provide Shufti Pro a single serv
   Required: **No**  
   Type: **object**
 
-  In name object used in document service, first_name and last_name are extracted from the document uploaded if name is empty. 
+  In the name object used in the document service, first_name and last_name are extracted from the document uploaded if a name is empty. 
 
   * <h4>first_name</h4>
   Required: **No**  
@@ -514,7 +517,7 @@ All verification services are optional. You can provide Shufti Pro a single serv
   Minimum: **2 characters**  
   Maximum: **32 chracters** 
 
-  Allowed Characters are alphabets, - (dash), comma, space, dot and single quotation mark. 
+  Allowed Characters are alphabets, - (dash), comma, space, dot and single quotation marks. 
   Example **John'O Harra**
 
   * <h4>middle_name</h4>
@@ -524,7 +527,7 @@ All verification services are optional. You can provide Shufti Pro a single serv
   Minimum: **2 characters**  
   Maximum: **32 chracters**
 
-  Allowed Characters are alphabets, - (dash), comma, space, dot and single quotation mark.  
+  Allowed Characters are alphabets, - (dash), comma, space, dot and single quotation marks.  
   Example **Carter-Joe**
 
   * <h4>last_name</h4>
@@ -534,7 +537,7 @@ All verification services are optional. You can provide Shufti Pro a single serv
   Minimum: **2 characters**  
   Maximum: **32 chracters**
 
-  Allowed Characters are alphabets, - (dash), comma, space, dot and single quotation mark. 
+  Allowed Characters are alphabets, - (dash), comma, space, dot and single quotation marks. 
   Example **John, Huricane Jr.**
 
   * <h4>fuzzy_match</h4>
@@ -543,7 +546,7 @@ All verification services are optional. You can provide Shufti Pro a single serv
   Type: **string**  
   Value Accepted: **1**
 
-  Provide 1 for enabling a fuzzy match of the name. Enabling fuzzy matching attempts to find a match which is not a 100% accurate.
+  Provide 1 for enabling a fuzzy match of the name. Enabling fuzzy matching attempts to find a match which is not 100% accurate.
 
   * <h3>dob</h3>
 
@@ -570,7 +573,7 @@ All verification services are optional. You can provide Shufti Pro a single serv
   Minimum: **2 characters**  
   Maximum: **100 chracters**
 
-  Leave empty to perform data extraction from the proof which will be uploaded by end-users. Allowed Characters are numbers, alphabets, dots, dashes, spaces, underscores and commas. 
+  Leave empty to perform data extraction from the proof that end-users will upload. Allowed Characters are numbers, alphabets, dots, dashes, spaces, underscores and commas. 
   Examples 35201-0000000-0, ABC1234XYZ098
 
   * <h3>issue_date</h3>
@@ -579,7 +582,7 @@ All verification services are optional. You can provide Shufti Pro a single serv
   Type: **string**  
   Format: **yyyy-mm-dd**
 
-  Leave empty to perform data extraction from the proof which will be uploaded by end-users. Provide a valid date. Please note that the date should be before today. 
+  Leave empty to perform data extraction from the proof that end-users will upload. Provide a valid date. Please note that the date should be before today. 
   Example 2015-12-31
 
   * <h3>expiry_date</h3>
@@ -588,7 +591,7 @@ All verification services are optional. You can provide Shufti Pro a single serv
   Type: **string**  
   Format: **yyyy-mm-dd**
 
-  Leave empty to perform data extraction from the proof which will be uploaded by end-users. Provide a valid date. Please note that the date should be after today. 
+  Leave empty to perform data extraction from the proof that end-users will upload. Provide a valid date. Please note that the date should be after today. 
   Example 2025-12-31
   
   * <h3>fetch_enhanced_data</h3>
@@ -598,17 +601,17 @@ All verification services are optional. You can provide Shufti Pro a single serv
   Accepted value: **1**
 
   Provide 1 for enabling enhanced data extraction for the document. Shufti Pro provides its customers with the facility of extracting enhanced data features using OCR technology. Now, instead of extracting just personal information input fields, Shufti Pro can fetch all the additional information comprising more than 100 data points from the official ID documents supporting 150 languages. For example height, place_of_birth, nationality, marital_status, weight, etc.(additional charges apply)
-Extrated data will be returned in object under the key additional_data in case of verification.accepted or verification.declined.
+Extracted data will be returned in an object under the key additional_data in case of verification.accepted or verification.declined.
 For Details on additional_data object go to [Additional Data](https://api.shuftipro.com/api/docs/#additional-data)
 
 <!-- -------------------------------------------------------------------------------- -->
 * ## document_two 
-  Document Two Service is provided to verify the personal details of a user from more than 1 document e.g. If you have verified the DOB & Name of a user from their ID Card, you can use Document Two Service to verify the Credit Card Number of your customer.
+  Document Two Service is provided to verify the personal details of a user from more than 1 document, e.g. If you have verified the DOB & Name of a user from their ID Card, you can use Document Two Service to verify the Credit Card Number of your customer.
 
-  Just like the “Document Service”, the supported formats for this service are also passports, ID Cards, driving licenses and debit/credit cards and more than one document type can be selected as well. In that case, Shufti Pro will give an option to end-users to verify their data from any of the given document types.  
+  Like the “Document Service”, the supported formats for this service are passports, ID Cards, driving licenses and debit/credit cards, and more than one document type can be selected as well. In that case, Shufti Pro will allow end-users to verify their data from any given document type.  
 * ## Address
 
-  Address of an individual can be verified from the document but they have to enter it before it can be verified from an applicable document image.
+  The address of an individual can be verified from the document, but they have to enter it before it can be verified from an applicable document image.
     * <h3>proof</h3>
 
   Required: **No**  
@@ -616,14 +619,14 @@ For Details on additional_data object go to [Additional Data](https://api.shufti
   Image Format: JPG, JPEG, PNG, PDF Maximum: 16MB <br>
   Video Format: MP4/MOV Maximum: 20MB
 
-  Provide valid BASE64 encoded string. Leave empty for an on-site verification.
+  Provide valid BASE64 encoded string. Leave empty for on-site verification.
 
   * <h3>supported_types</h3>
 
   Required: **No**  
   Type: **Array**
 
-  Provide any one, two or more document types in supported_types parameter in Address verification service. For example, if you choose id_card and utility_bill, then the user will be able to verify data using either of these two documents. Following is the list of supported types for address verification.
+  Provide any one, two or more document types in the supported_types parameter in the Address verification service. For example, if you choose id_card and utility_bill, then the user can verify data using either of these documents. Following is the list of supported types for address verification.
 
   Supported Types      |
   ---------------------|
@@ -742,7 +745,7 @@ For Details on additional_data object go to [Additional Data](https://api.shufti
   <!-- -------------------------------------------------------------------------------- -->
 * ## Phone
 
-  Verify the phone number of end-users by sending a random code to their number from Shufti Pro. Once the sent code is entered into the provided field by end-user, phone number will stand verified. It is primarily an on-site verification and you have to provide phone number of the end-user to us, in addition to the verification code and the message that is to be forwarded to the end-user. Shufti Pro will be responsible only to send the message along with verification code to the end user and verify the code entered by the end-user.
+  Verify the phone number of end-users by sending a random code to their number from Shufti Pro. Once the sent code is entered into the provided field by the end-user, the phone number will stand verified. It is primarily an on-site verification, and you have to provide the end user’s phone number to us, the verification code and the message to be forwarded to the end user. Shufti Pro will be responsible only for sending the message along with the verification code to the end user and verifying the code entered by the end user.
 
   * <h3>phone_number</h3>
 
@@ -751,7 +754,7 @@ For Details on additional_data object go to [Additional Data](https://api.shufti
   Minimum: **2 characters**  
   Maximum: **64 chracters**
 
-  Allowed Characters: numbers and plus sign at the beginning. Provide a valid customer’s phone number with country code. Shufti Pro will directly ask the end-user for phone number if this field is missing or empty.
+  Allowed Characters: numbers and sign at the beginning. Provide a valid customer’s phone number with country code. Shufti Pro will directly ask the end user for a phone number if this field is missing or empty.
 
   * <h3>random_code</h3>
 
@@ -769,19 +772,19 @@ For Details on additional_data object go to [Additional Data](https://api.shufti
   Minimum: **2 characters**  
   Maximum: **100 chracters**
 
-  Provide a short description and random code in this field. This message will be sent to customers. ***This field should contain random_code***. If random_code field is empty, then Shufti Pro will generate a random code
+  Provide a short description and random code in this field. This message will be sent to customers. ***This field should contain random_code***. If the random_code field is empty, then Shufti Pro will generate a random code.
 
 <!-- -------------------------------------------------------------------------------- -->
 * ## background_checks
 
-  It is a verification process that will require you to send us the full name of end user in addition to date of birth. Shufti Pro will perform AML based background checks based on this information. Please note that the name and dob keys will be extracted from document service if these keys are empty.
+  It is a verification process that will require you to send us the full name of the end user in addition to the date of birth. Shufti Pro will perform AML-based background checks based on this information. Please note that the name and dob keys will be extracted from the document service if these keys are empty.
 
   * <h3>name</h3>
 
   Required: **No**  
   Format: **object**
 
-  In name object used in background checks service, first_name is required and other fields are optional.
+  In the name object used in background checks service, first_name is required, and other fields are optional.
 
   * <h4>first_name</h4>
 
@@ -790,7 +793,7 @@ For Details on additional_data object go to [Additional Data](https://api.shufti
   Minimum: **2 characters**  
   Maximum: **32 chracters**
 
-  Allowed Characters are alphabets, - (dash), comma, space, dot and single quotation mark. 
+  Allowed Characters are alphabets, - (dash), comma, space, dot and single quotation marks. 
   Example **John'O Harra**
 
   * <h4>middle_name</h4>
@@ -800,7 +803,7 @@ For Details on additional_data object go to [Additional Data](https://api.shufti
   Minimum: **2 characters**  
   Maximum: **32 chracters**
 
-  Allowed Characters are alphabets, - (dash), comma, space, dot and single quotation mark.  
+  Allowed Characters are alphabets, - (dash), comma, space, dot and single quotation marks.  
   Example **Carter-Joe**
 
   * <h4>last_name</h4>
@@ -810,7 +813,7 @@ For Details on additional_data object go to [Additional Data](https://api.shufti
   Minimum: **2 characters**  
   Maximum: **32 chracters**
 
-  Allowed Characters are alphabets, - (dash), comma, space, dot and single quotation mark. 
+  Allowed Characters are alphabets, - (dash), comma, space, dot and single quotation marks. 
   Example **John, Huricane Jr.**
 
   * <h3>dob</h3>
@@ -826,7 +829,7 @@ For Details on additional_data object go to [Additional Data](https://api.shufti
 
 ## HTTP Codes
 
-Following is a list of HTTP codes which are generated in responses by Shufti Pro Verification API.
+Following is a list of HTTP codes generated in responses by Shufti Pro Verification API.
 
 HTTP code     | HTTP message         | Message        |                                   
 --------------|----------------------| -------------- |
@@ -842,39 +845,39 @@ HTTP code     | HTTP message         | Message        |
 
 ## Events
 
-Events are sent in responses which show the status of request. These events are sent in both HTTP and callback responses.
+Events are sent in responses which show the status of requests. These events are sent in both HTTP and callback responses.
 
 
 Event               | description     | HTTP Response | Callback Response
 ------------------------|-----------------|---------------|---------------
-request.pending         | Request parameters are valid and verification url is generated in case of on-site verification.|Yes|Yes
-request.invalid         | Request parameters provided in request are invalid.|Yes|Yes
-request.cancelled       | Request is cancelled by the user. This event occurs when end-user disagrees to terms and conditions before starting verifications.|Yes|Yes
-request.timeout         | Request has timed out after a specific period of time.|No|Yes
+request.pending         | Request parameters are valid, and verification URL is generated in case of on-site verification.|Yes|Yes
+request.invalid         | Request parameters provided in the request are invalid.|Yes|Yes
+request.cancelled       | Request is cancelled by the user. This event occurs when the end-user disagrees to the terms and conditions before starting verifications.|Yes|Yes
+request.timeout         | Request has timed out after a specific period.|No|Yes
 request.unauthorized    | Request is unauthorized. The information provided in authorization header is invalid.|Yes|No
 verification.accepted   | Request was valid and accepted after verification.|Yes|Yes
 verification.declined   | Request was valid and declined after verification.|Yes|Yes
 
 
 ## Sample project setup
-In ViewController.swift add your **Client ID**  and **Secret Key**, thats it!
-> **Note:** Run project on real device.
+In ViewController.swift, add your **Client ID**  and **Secret Key**, that’s it!
+> **Note:** Run the project on an actual device.
 ## Status Response
 The Shufti Pro Verification API will send a JSON response if a status request is made.
 
 
 * <h3>reference</h3>
 
-    This is the user’s unique request reference provided at the time of request, in order for the unique response to be identified. 
+    This is the user’s unique request reference provided at the time of request for the unique response to be identified. 
 
 
 * <h3>event</h3>
 
-    The request event shows the status of user’s request, and is different for every response. For more information, click
+    The requested event shows the status of the user’s request and is different for every response. For more information, click.
     [here](https://api.shuftipro.com/api/docs/#status-response)
 
 <aside class="notice">
-Note: <b>request.invalid</b> response with <b>HTTP status code 400</b> means the request is invalid.
+Note <b>request.invalid</b> response with <b>HTTP status code 400</b> means the request is invalid.
 </aside>
 
 >Sample Response  
@@ -906,16 +909,17 @@ tax_bill |
 <br>
 
 ## Test IDs
-Shufti Pro provides the users with a number of test documents. Customers may use these to test the demo, instead of presenting their actual information. <br><br>
-Note: These test IDs only be usefull in Iframe SDK.
+Shufti Pro provides users with several test documents. Customers may use these to test the demo instead of presenting their basic information. <br><br>
+Note: These test IDs only be helpful in Iframe SDK.
 
 [![](https://api.shuftipro.com/api/docs/images/test_ids/real_ID_card-01.png)](https://api.shuftipro.com/api/docs/images/test_ids/real_ID_card-01.png)
 
 [![](https://api.shuftipro.com/api/docs/images/test_ids/fake_ID_card-02.png)](https://api.shuftipro.com/api/docs/images/test_ids/fake_ID_card-02.png)
 
 ## Contact
-If you have any questions/queries regarding implementation SDK please feel free to contact our [tech support](mailto:support@shuftipro.com).
+If you have any questions/queries regarding the SDK implementation, please get in touch with our [tech support](mailto:support@shuftipro.com).
 
 ## Copyright
 2017- 22 © Shufti Pro Ltd.
+
 
